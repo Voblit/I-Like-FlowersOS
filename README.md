@@ -4,7 +4,23 @@
   <img src="https://raw.githubusercontent.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/main/Screenshot%202026-03-21%20143337.png" alt="Flowers OS" width="600">
   <br>
 </div>
-<dir>
+<p align="center">
+  <a href="https://github.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/actions">
+    <img src="https://img.shields.io/github/check-runs/I-like-flowers-HeckYeah/I-Like-FlowersOS/main?label=build&logo=github" />
+  </a>
+
+  <img src="https://img.shields.io/github/languages/code-size/I-like-flowers-HeckYeah/I-Like-FlowersOS" />
+
+  <img src="https://img.shields.io/github/downloads/I-like-flowers-HeckYeah/I-Like-FlowersOS/total?color=brightgreen" />
+
+  <a href="https://github.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/releases/latest">
+    <img src="https://img.shields.io/github/v/release/I-like-flowers-HeckYeah/I-Like-FlowersOS?include_prereleases" />
+  </a>
+
+  <a href="https://github.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/I-like-flowers-HeckYeah/I-Like-FlowersOS" />
+  </a>
+</p>
 <P>This OS is just a silly little project and is absolutely nothing to take sereously. IF, in any way shape form reason or matter, you are DUMB ENOUGH to boot this on a real device and it bricks it or somthing like that, <b>I AM NOT RESPONSIBLE</b> . Keep it to the vm. </P>
 <hr>
 <h3><b><I>THIS OS WILL INSULT YOU- PLEASE DONT BE OFFENDED; ITS JUST A JOKE.</b></I></h3>
