@@ -22,6 +22,7 @@
 </p>
 <P>This OS is just a silly little project and is absolutely nothing to take sereously. IF, in any way shape form reason or matter, you are DUMB ENOUGH to boot this on a real device and it bricks it or somthing like that, <b>I AM NOT RESPONSIBLE</b> . Keep it to the vm. </P>
 <b><I>THIS OS WILL INSULT YOU- PLEASE DONT BE OFFENDED; ITS JUST A JOKE.</b></I>
+  
 <p>The I~Like~FlowersOS Operating System (from now on refered to as FLowerOS because that name is too long for me) was built using Visual Studio Code 2026 and the Cosmos C# OS Development Kit. FlowerOS is just a PoC (Proof of Concept) and is not meant to be taken sereously.</p>
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
