@@ -12,34 +12,12 @@
 <p>The I~Like~FlowersOS Operating System (from now on refered to as FLowerOS because that name is too long for me) was built using Visual Studio Code 2026 and the Cosmos C# OS Development Kit. FlowerOS is just a PoC (Proof of Concept) and is not meant to be taken sereously.</p>
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
-<ul>
-  <li>fastfetch</li>
-  <li>help</li>
-  <li>time</li>
-  <li>cls</li>
-  <li>echo</li>
-  <li>hello</li>
-  <li>ls</li>
-  <li>reboot</li>
-  <li>shutdown</li>
-  <li>dmesg</li>
-  <li>flower</li>
-  <li>append-text</li>
-  <li>recall-text</li>
-  <li>format</li>
-  <li>rm</li>
-  <li>yes</li>
-  <li>whoami</li>
-  <li>free</li>
-  <li>beep</li>
-  <li>theme</li>
-  <li>uptime</li>
-  <li>wc</li>
-  <li>touch</li>
-  <li>base64</li>
-  <li>kill</li>
-  <li>mkdir</li>
-  <li>cd</li>
-  <li>cat</li>
-</ul>
+<pre><code>
+fastfetch  | help        | time      | cls       | echo
+hello      | ls          | reboot    | shutdown  | dmesg
+flower     | append-text | recall-text | format  | rm
+yes        | whoami      | free      | beep      | theme
+uptime     | wc          | touch     | base64    | kill
+mkdir      | cd          | cat
+</code></pre>
 <I>There are also some secret commands- try to find them!</I>
