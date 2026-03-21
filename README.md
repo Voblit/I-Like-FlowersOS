@@ -17,9 +17,7 @@
     <img src="https://img.shields.io/github/v/release/I-like-flowers-HeckYeah/I-Like-FlowersOS?include_prereleases" />
   </a>
 
-  <a href="https://github.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/I-like-flowers-HeckYeah/I-Like-FlowersOS" />
-  </a>
+
 </p>
 <P>This OS is just a silly little project and is absolutely nothing to take sereously. IF, in any way shape form reason or matter, you are DUMB ENOUGH to boot this on a real device and it bricks it or somthing like that, <b>I AM NOT RESPONSIBLE</b> . Keep it to the vm. </P>
 <hr>
