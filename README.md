@@ -4,6 +4,7 @@
   <img src="https://raw.githubusercontent.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/main/Screenshot%202026-03-21%20143337.png" alt="Flowers OS" width="600">
   <br>
 </div>
+<hr>
 <p align="center">
   <a href="https://github.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/actions">
     <img src="https://img.shields.io/github/check-runs/I-like-flowers-HeckYeah/I-Like-FlowersOS/main?label=build&logo=github" />
