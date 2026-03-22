@@ -101,6 +101,7 @@ contract, or otherwise.  Control can be direct or indirect.
 
 **Your licenses** are all the licenses granted to you for the
 software under these terms.
+-----------------------------------------
 The license for the Cosmos Toolkit:
 BSD 3-Clause License
 
