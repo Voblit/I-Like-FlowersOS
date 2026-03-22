@@ -1,2 +1,2 @@
 *.asm filter=lfs diff=lfs merge=lfs -text
-ILikeFlowersOS.asm linguist-detectable
+ILikeFlowersOS.asm linguist-detectable=true
