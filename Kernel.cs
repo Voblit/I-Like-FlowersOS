@@ -1,3 +1,20 @@
+//******************************************************************************
+
+// * FLOWER OS - Version 1.0 (FIRST!!1 Update)
+
+// * Copyright (c) 2026 Voblit
+
+// * * LICENSE: Multiple, including PolyForm Strict License 1.0.0
+
+// * * DESCRIPTION:
+
+// * Kernel works with multiple classic busybox/DOS commands.
+
+// *Virtual File System initialized and usable.
+
+// *I like flowers!! ( ^ _ ^ )
+
+//******************************************************************************
 using Cosmos.HAL;
 using Cosmos.HAL.BlockDevice;
 using Cosmos.System.FileSystem;
