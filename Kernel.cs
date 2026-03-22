@@ -43,7 +43,7 @@ namespace ILikeFlowersOS
             Random rnd = new Random();
             Console.WriteLine("ITS DEAD OH NO!!1 " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
             Console.WriteLine("I~like~flowersOS has detected a problem and has shut down to prevent ");
-            Console.WriteLine("further damage to your system... or ur sanity... hehe");
+            Console.WriteLine("further damage to your system... or your sanity.");
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine("Err Code:" + e);
             Console.WriteLine("---------------------------------------------");
@@ -184,7 +184,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                 {
                     currentDirectoryshown = currentDirectory;
                 }
-                Console.Write($"{currentDirectoryshown}`# ");
+                Console.Write(currentDirectoryshown +"`# ");
                 Console.ResetColor();
                 var input = Console.ReadLine().Trim();
                 if (string.IsNullOrWhiteSpace(input)) return;
