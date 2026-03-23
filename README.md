@@ -41,7 +41,7 @@
   <br>
   <p>The infamous blue screen of death accessable in the OS via a secret command</p>
 <hr>
-<hr>
+  </div></div>
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
  <ul>
