@@ -27,6 +27,9 @@
 <b><I>THIS OS WILL INSULT YOU- PLEASE DONT BE OFFENDED; ITS JUST A JOKE.</b></I>
   </p>
 <p>The I~Like~FlowersOS Operating System (from now on refered to as FLowerOS because that name is too long for me) was built using Visual Studio Code 2026 and the Cosmos C# OS Development Kit. FlowerOS is just a PoC (Proof of Concept) and is not meant to be taken sereously.</p>
+<hr>
+<p>Unfortunately, due to the massive configuration needed to get it work, the VFS <B>may not work in your VM (or bare metal if you are insane).</B> This is because Cosmos.VFS (the module used for painless virtual file system setup) requires the disk (if its a virtual disk) to be a .vhd instead of a .vdi AND also be formatted as fat32, and even then <i>I</i> am getting ATA errors. If you can figure out how to fix this, please open an issue discribing the fix!</p>
+<hr>
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
  <ul>
