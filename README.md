@@ -29,6 +29,18 @@
 <p>The I~Like~FlowersOS Operating System (from now on refered to as FLowerOS because that name is too long for me) was built using Visual Studio Code 2026 and the Cosmos C# OS Development Kit. FlowerOS is just a PoC (Proof of Concept) and is not meant to be taken sereously.</p>
 <hr>
 <p>Unfortunately, due to the massive configuration needed to get it work, the VFS <B>may not work in your VM (or bare metal if you are insane).</B> This is because Cosmos.VFS (the module used for painless virtual file system setup) requires the disk (if its a virtual disk) to be a .vhd instead of a .vdi AND also be formatted as fat32, but even then <i>I</i> am still getting ATA errors. If you can figure out how to fix this, please open an issue discribing the fix!</p>
+
+<h2>GALLERY</h2>
+<h3>Cool photos of the OS</h3>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/main/Screenshot%202026-03-21%20143337.png" alt="Flowers OS" width="600">
+  <br>
+  <p>The OS's banner</p>
+  <div align="center">
+  <img src="https://raw.githubusercontent.com/Voblit/I-Like-FlowersOS/refs/heads/main/Screenshot%202026-03-23%20170414.png" alt="Flowers OS" width="600">
+  <br>
+  <p>The infamous blue screen of death accessable in the OS via a secret command</p>
+<hr>
 <hr>
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
@@ -93,5 +105,3 @@
 </ul> 
 <I>There are also some secret commands- try to find them!</I>
 <hr>
-<h2>GALLERY</h2>
-<h3>Cool photos of the OS</h3>
