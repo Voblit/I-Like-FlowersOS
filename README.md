@@ -89,3 +89,6 @@
 
 </ul> 
 <I>There are also some secret commands- try to find them!</I>
+<hr>
+<h2>GALLERY</h2>
+<h3>Cool photos of the OS</h3>
