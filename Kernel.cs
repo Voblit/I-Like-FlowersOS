@@ -70,7 +70,7 @@ namespace ILikeFlowersOS
         }
         public static void NeoFetch(string currentver)
         {
-            Console.ForegroundColor= ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($@"
                      .-~~~-
                 .-~~~_._~~~\   
@@ -136,7 +136,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
     {
         Random rnd = new Random();
         //i think i need to update... i think
-        public string avaliblecommands = "fastfetch, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat";
+        public string avaliblecommands = "neofetch, banner, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat";
         Canvas canvas;
         private CosmosVFS vfs;
         public string currentver = "1.1.0";
@@ -179,8 +179,8 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
 
 
-                Console.WriteLine("Cosmos kernel booting...");
-                
+            Console.WriteLine("Cosmos kernel booting...");
+
             try
             {
                 this.vfs = new Cosmos.System.FileSystem.CosmosVFS();
@@ -191,11 +191,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                 errorThingy.Error(e.ToString());
             }
             var disks = VFSManager.GetDisks();
-            Console.WriteLine("Kernel sees "+ disks.Count +" disks.");
+            Console.WriteLine("Kernel sees " + disks.Count + " disks.");
 
             foreach (var d in disks)
             {
-                Console.WriteLine("Disk Size: " + d.Size / 1024 / 1024 +"MB | Partitions: "+d.Partitions.Count);
+                Console.WriteLine("Disk Size: " + d.Size / 1024 / 1024 + "MB | Partitions: " + d.Partitions.Count);
             }
             Cosmos.HAL.Global.PIT.Wait(2000);
 
@@ -205,7 +205,8 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
         public string currentDirectoryshown = @"0:\";
         protected override void Run()
         {
-            try {
+            try
+            {
                 Console.ForegroundColor = ConsoleColor.Green;
                 if (currentDirectory == @"0:\")
                 {
@@ -271,7 +272,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 case "bsod": Console.WriteLine("bsod: The suicide button. Don't press it just because you're bored."); break;
                                 case "suicide": Console.WriteLine("suicide: Crashes the system on purpose- just a test tool."); break;
 
-                                default: Console.WriteLine("No help avalible for " +subCommand); break;
+                                default: Console.WriteLine("No help avalible for " + subCommand); break;
                             }
                         }
                         else
@@ -425,7 +426,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + ex.Message  + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + ex.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                         }
                         break;
 
@@ -487,7 +488,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)") );
+                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
 
@@ -503,7 +504,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         break;
 
                     case "whoami":
-                        Console.WriteLine("I~Like~FlowersOS offical build version "+ currentver);
+                        Console.WriteLine("I~Like~FlowersOS offical build version " + currentver);
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         bool isVM = false;
 
@@ -537,8 +538,8 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         Console.WriteLine("Now watch me beeep");
                         for (int i = 0; i < 3; i++)
                         {
-                            Cosmos.System.PCSpeaker.Beep(2000, 50); 
-                            Cosmos.System.PCSpeaker.Beep(2500, 50); 
+                            Cosmos.System.PCSpeaker.Beep(2000, 50);
+                            Cosmos.System.PCSpeaker.Beep(2500, 50);
                         }
                         Console.WriteLine("now watch me naynay");
                         break;
@@ -587,7 +588,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                     case "uptime":
                         Console.WriteLine("Cpu is " + Cosmos.Core.CPU.GetCPUBrandString());
-                        Console.WriteLine("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000 +" seconds.");
+                        Console.WriteLine("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000 + " seconds.");
                         break;
 
                     case "wc":
@@ -597,7 +598,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             {
                                 string path = currentDirectory + parts[1];
                                 string content = File.ReadAllText(path);
-                                Console.WriteLine(content.Split('\n').Length + "lines,"+ content.Split(' ').Length+ " words");
+                                Console.WriteLine(content.Split('\n').Length + "lines," + content.Split(' ').Length + " words");
                             }
                             catch { Console.WriteLine("uhm its not there... :/"); }
                         }
@@ -667,7 +668,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 if (Directory.Exists(NeWpAtH))
                                     currentDirectory = NeWpAtH;
                                 else
-                                    Console.WriteLine("Directory not found!"  + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                    Console.WriteLine("Directory not found!" + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                             }
                         }
                         break;
@@ -714,11 +715,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                     case "bsod":
                         errorThingy.Error("User_Is_Stupid");
                         break;
-                    
+
                     case "devlist":
                         var drivesig = VFSManager.GetDisks();
-                        Console.WriteLine("Found " + drivesig.Count+ " disks.");
-                         int diskno = 0;
+                        Console.WriteLine("Found " + drivesig.Count + " disks.");
+                        int diskno = 0;
                         foreach (var drive in drivesig)
                         {
                             diskno++;
@@ -728,7 +729,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Unknown input: " + input  + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                        Console.WriteLine("Unknown input: " + input + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                         Console.ResetColor();
                         break;
 
@@ -743,4 +744,4 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
         }
     }
 
-    }
+}
