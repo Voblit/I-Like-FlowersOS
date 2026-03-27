@@ -1,6 +1,6 @@
 //******************************************************************************
 
-// * FLOWER OS - Version 1.0 (FIRST!!1 Update)
+// * FLOWER OS - Version 1.1 (Neofetch/fastfetch Rework Update)
 
 // * Copyright (c) 2026 Voblit
 
@@ -43,7 +43,7 @@ namespace ILikeFlowersOS
             Random rnd = new Random();
             Console.WriteLine("ITS DEAD OH NO!!1 " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
             Console.WriteLine("I~like~flowersOS has detected a problem and has shut down to prevent ");
-            Console.WriteLine("further damage to your system... or your sanity.");
+            Console.WriteLine("further damage to your system... or ur sanity... hehe");
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine("Err Code:" + e);
             Console.WriteLine("---------------------------------------------");
@@ -67,6 +67,37 @@ namespace ILikeFlowersOS
 
                 Cosmos.Core.CPU.Halt();
             }
+        }
+        public static void NeoFetch(string currentver)
+        {
+            Console.ForegroundColor= ConsoleColor.Red;
+            Console.WriteLine($@"
+                     .-~~~-
+                .-~~~_._~~~\   
+                /~-~~   ~.  `._ I like flowers OS
+               /    \     \  | ~~-_ I like flowers OS
+       __     |      |     | |  /~\|   I like flowers OS
+   _-~~  ~~-..|       ______||/__..-~~/
+    ~-.___     \     /~\_________.-~~
+         \~~--._\   |             / Current version {currentver}
+          ^-_    ~\  \          /^
+             ^~---|~~~~-.___.-~^
+               /~^| | | |^~\ Uptime: {Cosmos.Core.CPU.GetCPUUptime() / 1000000000}
+              //~^`/ /_/ ^~\\ Ram: IDK.
+              /   //~||      \
+                 ~   || Your CPU: {Cosmos.Core.CPU.GetCPUBrandString()}
+          ___      -(||      __ ___ _
+         |\|  \       ||_.-~~ /|\-  \~-._
+         | -\| |      ||/   /  | |\- | |\ \
+          \__-\|______ ||  |    \___\|  \_\|
+    _____ _.-~/|\     \\||  \  |  /       ~-.
+  /'  --/|  / /|  \    \||    \ /          |\~-
+ ' ---/| | |   |\  |     ||                 \__|
+| --/| | ;  \ /|  /    -(|| The time is {DateTime.Now.ToString()}
+`./  |  /     \|/        ||)-
+  `~^~^                  ||
+");
+            Console.ResetColor();
         }
         public static void Fastfetch(string currentver)
         {
@@ -108,7 +139,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
         public string avaliblecommands = "fastfetch, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat";
         Canvas canvas;
         private CosmosVFS vfs;
-        public string currentver = "1.0.0";
+        public string currentver = "1.1.0";
 
         //(^-^)
         //dont even think of removing it
@@ -184,7 +215,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                 {
                     currentDirectoryshown = currentDirectory;
                 }
-                Console.Write(currentDirectoryshown +"`# ");
+                Console.Write($"{currentDirectoryshown}`# ");
                 Console.ResetColor();
                 var input = Console.ReadLine().Trim();
                 if (string.IsNullOrWhiteSpace(input)) return;
@@ -194,8 +225,12 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                 switch (command)
                 {
-                    case "fastfetch":
+                    case "banner":
                         errorThingy.Fastfetch(currentver);
+                        break;
+
+                    case "neofetch":
+                        errorThingy.NeoFetch(currentver);
                         break;
 
                     case "help":
@@ -205,7 +240,8 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             switch (subCommand)
                             {
                                 //this took too long :/
-                                case "fastfetch": Console.WriteLine("fastfetch: just the OS banner. ALWAYS RUN IT AFTER CLS!!1"); break;
+                                case "neofetch": Console.WriteLine("neofetch: OS logo and stats. ALWAYS RUN IT AFTER CLS!!1"); break;
+                                case "banner": Console.WriteLine("This is the OG OS banner left just because its multicolor :)"); break;
                                 case "touch": Console.WriteLine("touch <file>: Creates an empty file. Do not harass the drive."); break;
                                 case "append-text": Console.WriteLine("append-text <file> <text>: OVERwrites text to a file."); break;
                                 case "ls": Console.WriteLine("ls: Lists files in the current directory"); break;
@@ -431,7 +467,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         catch (Exception e)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                             Console.ResetColor();
                         }
                         break;
@@ -499,7 +535,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                     case "beep":
                         Console.WriteLine("Now watch me beeep");
-                        Cosmos.System.PCSpeaker.Beep(440, 500);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Cosmos.System.PCSpeaker.Beep(2000, 50); 
+                            Cosmos.System.PCSpeaker.Beep(2500, 50); 
+                        }
                         Console.WriteLine("now watch me naynay");
                         break;
 
