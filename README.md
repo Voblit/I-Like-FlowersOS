@@ -1,7 +1,7 @@
-<h1>I~LIKE~FLOWERS~OPERATING~SYSTEM</h1>
+<h1>I~LIKE~FLOWERS~OPERATING~SYSTEM v1.1</h1>
 <h3><I>The ultimate OS to get nothing done and be proud of it!-(ↄ)</I></h3>
 <div align="center">
-  <img src="https://raw.githubusercontent.com/I-like-flowers-HeckYeah/I-Like-FlowersOS/main/Screenshot%202026-03-21%20143337.png" alt="Flowers OS" width="600">
+  <img src="https://github.com/Voblit/I-Like-FlowersOS/blob/main/Screenshot%202026-03-27%20165354.png" alt="Flowers OS" width="600">
   <br>
 </div>
 <hr>
@@ -46,8 +46,10 @@
 <p>As of now, the curent supported commands in flowerOS are:</p>
  <ul>
 
-  <li>fastfetch</li>
+  <li>neofetch</li>
 
+  <li>banner</li>
+  
   <li>help</li>
 
   <li>time</li>
