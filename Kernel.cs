@@ -1,6 +1,6 @@
 //******************************************************************************
 
-// * FLOWER OS - Version 1.2 (MV  and CP command Update)
+// * FLOWER OS - Version 1.2.fix (MV  and CP command Update)
 
 // * Copyright (c) 2026 Voblit
 
@@ -379,7 +379,10 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             string desttomv = Path.Combine(currentDirectory, parts[2].Trim());
                             try
                             {
-                                File.Move(srctomv, desttomv);
+                            //emergancy move fix
+                                byte[] fileData = File.ReadAllBytes(srctomv);
+                                File.WriteAllBytes(desttomv, fileData);
+                                File.Delete(srctomv);
                                 LineWrite("File successfully moved! " + desttomv + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                             }
                             catch (Exception e)
