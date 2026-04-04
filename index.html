@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head><title>IDK lol</title></head>
-<body style="background: grey; font-family: sans-serif; text-align: center;">
-    <h1>I~Like~FlowersOS v1.x</h1>
-    <p>Installing the OS is live at <a herf="https://github.com/Voblit/I-Like-FlowersOS/releases/tag/v1.0.0"here</a></p>
-    <hr>
-    <pre>
-                                   _.-'''.
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I-Like-FlowersOS | Live</title>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; padding: 50px; }
+        .glass { 
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(10px); 
+            padding: 30px; 
+            border-radius: 15px; 
+            display: inline-block;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+        }
+        h1 { color: #ff69b4; }
+        #version { font-weight: bold; color: #00ffcc; }
+        pre { color: #ffb6c1; font-size: 10px; margin-top: 20px; text-align: left; display: inline-block;}
+    </style>
+</head>
+<body>
+
+    <div class="glass">
+        <h1>I~Like~FlowersOS <span id="version">Loading...</span></h1>
+        <p>Latest version fetched live from GitHub.</p>
+        <p>Install link: <a href="https://github.com/Voblit/I-Like-FlowersOS" style="color: #00ffcc;">GitHub Repo</a></p>
+        
+        <hr>
+
+        <pre>
+                              _.-'''.
                     _       .'       \
       ,..______  .-/\`--.../          \
       |        '\| \_`_-.  `.  _       \
@@ -40,6 +62,31 @@
                         .' /   _,.--'
                         |..--''
 
-    </pre>
+    
+        </pre>
+    </div>
+
+    <script>
+        async function updateVersion() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/Voblit/I-Like-FlowersOS/main/Kernel.cs');
+                const text = await response.text();
+                
+
+                const match = text.match(/currentver\s*=\s*"([^"]+)"/);
+                
+                if (match && match[1]) {
+                    document.getElementById('version').innerText = 'v' + match[1];
+                } else {
+                    document.getElementById('version').innerText = 'v1.1.0'; 
+                }
+            } catch (error) {
+                console.error("Failed to fetch version:", error);
+                document.getElementById('version').innerText = 'v1.1.0';
+            }
+        }
+
+        updateVersion();
+    </script>
 </body>
 </html>
