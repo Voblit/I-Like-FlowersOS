@@ -1,6 +1,6 @@
 //******************************************************************************
 
-// * FLOWER OS - Version 1.1 (Neofetch/fastfetch Rework Update)
+// * FLOWER OS - Version 1.2 (MV  and CP command Update)
 
 // * Copyright (c) 2026 Voblit
 
@@ -25,10 +25,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 using Sys = Cosmos.System;
 using Cosmos.System.FileSystem.Listing;
 using System.Runtime.ConstrainedExecution;
+using System.Diagnostics;
 
 namespace ILikeFlowersOS
 {
@@ -41,26 +41,26 @@ namespace ILikeFlowersOS
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Random rnd = new Random();
-            Console.WriteLine("ITS DEAD OH NO!!1 " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
-            Console.WriteLine("I~like~flowersOS has detected a problem and has shut down to prevent ");
-            Console.WriteLine("further damage to your system... or ur sanity... hehe");
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine("Err Code:" + e);
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine("***technical info 0x594F555F4152455F5354555049445F");
+            Kernel.LineWrite("ITS DEAD OH NO!!1 " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
+            Kernel.LineWrite("I~like~flowersOS has detected a problem and has shut down to prevent ");
+            Kernel.LineWrite("further damage to your system... or ur sanity... hehe");
+            Kernel.LineWrite("---------------------------------------------");
+            Kernel.LineWrite("Err Code:" + e);
+            Kernel.LineWrite("---------------------------------------------");
+            Kernel.LineWrite("***technical info 0x594F555F4152455F5354555049445F");
             //translation ^^^ means YOU_ARE_STUPID_
-            Console.WriteLine("***technical info 0x4745545F4F46465F4C494E5558");
+            Kernel.LineWrite("***technical info 0x4745545F4F46465F4C494E5558");
             //translation ^^^ means GET_OFF_LINUX
-            Console.WriteLine("***technical info 0x474F5F544F5543485F4752415353");
+            Kernel.LineWrite("***technical info 0x474F5F544F5543485F4752415353");
             //translation ^^^ means GO_TOUCH_GRASS
-            Console.WriteLine("\nIf this is the first time you've seen this Stop error screen,");
+            Kernel.LineWrite("\nIf this is the first time you've seen this Stop error screen,");
 
-            Console.WriteLine("restart your computer. If this screen appears again, follow");
-            Console.WriteLine("these steps:");
+            Kernel.LineWrite("restart your computer. If this screen appears again, follow");
+            Kernel.LineWrite("these steps:");
 
-            Console.WriteLine("\nCheck to make sure any new hardware or software is properly installed.");
-            Console.WriteLine("If this is a new installation, ask your hardware or software manufacturer");
-            Console.WriteLine("why you are like this.");
+            Kernel.LineWrite("\nCheck to make sure any new hardware or software is properly installed.");
+            Kernel.LineWrite("If this is a new installation, ask your hardware or software manufacturer");
+            Kernel.LineWrite("why you are like this.");
             Console.Write(Environment.NewLine);
             while (true)
             {
@@ -71,7 +71,7 @@ namespace ILikeFlowersOS
         public static void NeoFetch(string currentver)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($@"
+            Kernel.LineWrite($@"
                      .-~~~-
                 .-~~~_._~~~\   
                 /~-~~   ~.  `._ I like flowers OS
@@ -102,7 +102,7 @@ namespace ILikeFlowersOS
         public static void Fastfetch(string currentver)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(@"
+            Kernel.LineWrite(@"
  _______ ___    _________ _________
  |_   _| | |    |_   _| |/ /  ____|                     
    | |   | |      | | | ' /| |__                        
@@ -110,7 +110,7 @@ namespace ILikeFlowersOS
   _| |_  | |____ _| |_| . \| |____                      
  |_____| |______|_____|_|\_\______|");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(@"
+            Kernel.LineWrite(@"
  _________      ______          ______________   ______
  |  ____| |    / __ \ \        / /  ____|  __ \ / ____| 
  | |__  | |   | |  | \ \  /\  / /| |__  | |__) | (___   
@@ -118,7 +118,7 @@ namespace ILikeFlowersOS
  | |    | |___| |__| | \  /\  /  | |____| | \ \ ____) | 
  |_|___ |______\____/   \/  \/   |______|_|  \_\_____/  ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(@"
+            Kernel.LineWrite(@"
    ____   ______
   / __ \ / ____|                                        
  | |  | | (___                                          
@@ -127,22 +127,38 @@ namespace ILikeFlowersOS
   \____/|_____/                                         
 _____________________I LIKE FLOWERS OS VERSION: " + currentver + "________________________");
             Console.ResetColor();
-            Console.WriteLine("Current Date/Time: " + DateTime.Now.ToString());
-            Console.WriteLine("Cpu is " + Cosmos.Core.CPU.GetCPUBrandString());
-            Console.WriteLine("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000);
+            Kernel.LineWrite("Current Date/Time: " + DateTime.Now.ToString());
+            Kernel.LineWrite("Cpu is " + Cosmos.Core.CPU.GetCPUBrandString());
+            Kernel.LineWrite("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000);
         }
     }
     public class Kernel : Sys.Kernel
     {
+        public static string whateveristheretofunnel = "";
+        public static bool amIfunneling = false;
+        public static string funnelingto = "";
+
+        public static void LineWrite(string text)
+        {
+            if (amIfunneling)
+            {
+                whateveristheretofunnel += text + "\n";
+            }
+            else
+            {
+                Console.WriteLine(text);
+            }
+        }
         Random rnd = new Random();
         //i think i need to update... i think
-        public string avaliblecommands = "neofetch, banner, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat";
+        public string avaliblecommands = "neofetch, banner, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat, devlist, df, funnel, mv, cp";
         Canvas canvas;
         private CosmosVFS vfs;
-        public string currentver = "1.1.0";
+        public string currentver = "1.2.0";
 
         //(^-^)
         //dont even think of removing it
+        //HOURS WASTED TRYING TO MAKE THIS SHOW UP IN THE OS AND THEN IT JUST DOES ?????????: 5
         string nothing = @"
 ⣿⣿⣿⣿⣿⣿⡟⣏⠀⠱⠀⠀⢹⣄⠙⢿⣿⣿⣿⣿⣿⣶⣀⣤⡶⢖⣒⣂⣀⠀⠀⠀⠀⠀⠀⢀⡨⠗⠲⣄⡈⠑⢆⠈⢦⠀⠀⠀⠀
 ⣿⣿⣿⣿⣿⣿⣿⡞⣸⣆⠀⠀⠀⠀⠙⢗⢦⣙⢿⣿⣿⣿⣿⣿⡟⠁⡀⠀⣼⣿⣄⣀⡠⡀⣀⣀⣈⣀⡤⠂⠁⡬⠑⢄⠀⠀⠣⡀⠀⠀
@@ -179,7 +195,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
 
 
-            Console.WriteLine("Cosmos kernel booting...");
+            LineWrite("Cosmos kernel booting...");
 
             try
             {
@@ -191,11 +207,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                 errorThingy.Error(e.ToString());
             }
             var disks = VFSManager.GetDisks();
-            Console.WriteLine("Kernel sees " + disks.Count + " disks.");
+            LineWrite("Kernel sees " + disks.Count + " disks.");
 
             foreach (var d in disks)
             {
-                Console.WriteLine("Disk Size: " + d.Size / 1024 / 1024 + "MB | Partitions: " + d.Partitions.Count);
+                LineWrite("Disk Size: " + d.Size / 1024 / 1024 + "MB | Partitions: " + d.Partitions.Count);
             }
             Cosmos.HAL.Global.PIT.Wait(2000);
 
@@ -218,8 +234,12 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                 }
                 Console.Write($"{currentDirectoryshown}`# ");
                 Console.ResetColor();
+
                 var input = Console.ReadLine().Trim();
                 if (string.IsNullOrWhiteSpace(input)) return;
+
+            starthere: 
+
                 var parts = input.Split(' ');
                 string command = parts[0].ToLower();
 
@@ -241,50 +261,54 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             switch (subCommand)
                             {
                                 //this took too long :/
-                                case "neofetch": Console.WriteLine("neofetch: OS logo and stats. ALWAYS RUN IT AFTER CLS!!1"); break;
-                                case "banner": Console.WriteLine("This is the OG OS banner left just because its multicolor :)"); break;
-                                case "touch": Console.WriteLine("touch <file>: Creates an empty file. Do not harass the drive."); break;
-                                case "append-text": Console.WriteLine("append-text <file> <text>: OVERwrites text to a file."); break;
-                                case "ls": Console.WriteLine("ls: Lists files in the current directory"); break;
-                                case "cls": Console.WriteLine("cls: Clears the screen."); break;
-                                case "free": Console.WriteLine("free: Shows how much RAM you've gobbled up"); break;
-                                case "mkdir": Console.WriteLine("Ok, now im just concerned. Nobody should be using a crappy CLI OS without knowing what mkdir is."); break;
-                                case "cd": Console.WriteLine("HOW ON EARTH DO YOU NOT KNOW WHAT CD IS??? GET YOUR BUNS OFF LINUX AND GET BACK ONTO UR STINKY APPLE PC!!1"); break;
-                                case "time": Console.WriteLine("time: Shows the current time... not much else."); break;
-                                case "hello": Console.WriteLine("hello: You're talking to a computer. Go find a real friend."); break;
-                                case "reboot": Console.WriteLine("reboot: restarts the OS in the event that your having some troubles."); break;
-                                case "shutdown": Console.WriteLine("shutdown: shuts down the OS and if your in a vm closes the window."); break;
-                                case "dmesg": Console.WriteLine("dmesg: doesnt do much as I dont know how to save kernel logs/too lazy to do it."); break;
-                                case "flower": Console.WriteLine("flower: Displays the only beautiful thing in this entire CLI."); break;
-                                case "recall-text": Console.WriteLine("recall-text <file>: Reads a file. Assuming you actually know how to read."); break;
-                                case "format": Console.WriteLine("format: Deletes everything and formats your 0 drive to FAT32."); break;
-                                case "rm": Console.WriteLine("rm <file>: Deletes a file. "); break;
-                                case "yes": Console.WriteLine("yes: Spams 'y'. Press something to stop."); break;
-                                case "whoami": Console.WriteLine("whoami: YOU ARE STUPID THATS WHAT."); break;
-                                case "beep": Console.WriteLine("beep: now watch me beeeep- now watch me naynay *ok!*"); break;
-                                case "theme": Console.WriteLine("theme <name>: Changes colors because you're picky. 'hacker' doesn't make you cool."); break;
-                                case "uptime": Console.WriteLine("uptime: seconds from boot."); break;
-                                case "wc": Console.WriteLine("wc <file>: Counts words in a file."); break;
-                                case "base64": Console.WriteLine("base64 <text>: converts text into base64."); break;
-                                case "kill": Console.WriteLine("kill: Doesn't do anything yet."); break;
-                                case "cat": Console.WriteLine("cat <file>: Prints the contents of a file."); break;
-                                case "devlist": Console.WriteLine("devlist: Lists disks."); break;
-                                case "bsod": Console.WriteLine("bsod: The suicide button. Don't press it just because you're bored."); break;
-                                case "suicide": Console.WriteLine("suicide: Crashes the system on purpose- just a test tool."); break;
+                                case "df": LineWrite("Check how much used in your current folder, go to root to see total drive size."); break;
+                                case "funnel": LineWrite("funnel <command> <output.txt> funnels command's output and puts into the designated file"); break;
+                                case "neofetch": LineWrite("neofetch: OS logo and stats. ALWAYS RUN IT AFTER CLS!!1"); break;
+                                case "banner": LineWrite("This is the OG OS banner left just because its multicolor :)"); break;
+                                case "touch": LineWrite("touch <file>: Creates an empty file. Do not harass the drive."); break;
+                                case "append-text": LineWrite("append-text <file> <text>: OVERwrites text to a file."); break;
+                                case "ls": LineWrite("ls: Lists files in the current directory"); break;
+                                case "cls": LineWrite("cls: Clears the screen."); break;
+                                case "free": LineWrite("free: Shows how much RAM you've gobbled up"); break;
+                                case "mkdir": LineWrite("Ok, now im just concerned. Nobody should be using a crappy CLI OS without knowing what mkdir is."); break;
+                                case "cd": LineWrite("HOW ON EARTH DO YOU NOT KNOW WHAT CD IS??? GET YOUR BUNS OFF LINUX AND GET BACK ONTO UR STINKY APPLE PC!!1"); break;
+                                case "time": LineWrite("time: Shows the current time... not much else."); break;
+                                case "hello": LineWrite("hello: You're talking to a computer. Go find a real friend."); break;
+                                case "reboot": LineWrite("reboot: restarts the OS in the event that your having some troubles."); break;
+                                case "shutdown": LineWrite("shutdown: shuts down the OS and if your in a vm closes the window."); break;
+                                case "dmesg": LineWrite("dmesg: doesnt do much as I dont know how to save kernel logs/too lazy to do it."); break;
+                                case "flower": LineWrite("flower: Displays the only beautiful thing in this entire CLI."); break;
+                                case "recall-text": LineWrite("recall-text <file>: Reads a file. Assuming you actually know how to read."); break;
+                                case "format": LineWrite("format: Deletes everything and formats your 0 drive to FAT32."); break;
+                                case "rm": LineWrite("rm <file>: Deletes a file. "); break;
+                                case "yes": LineWrite("yes: Spams 'y'. Press something to stop."); break;
+                                case "whoami": LineWrite("whoami: YOU ARE STUPID THATS WHAT."); break;
+                                case "beep": LineWrite("beep: now watch me beeeep- now watch me naynay *ok!*"); break;
+                                case "theme": LineWrite("theme <name>: Changes colors because you're picky. 'hacker' doesn't make you cool."); break;
+                                case "uptime": LineWrite("uptime: seconds from boot."); break;
+                                case "wc": LineWrite("wc <file>: Counts words in a file."); break;
+                                case "base64": LineWrite("base64 <text>: converts text into base64."); break;
+                                case "kill": LineWrite("kill: Doesn't do anything yet."); break;
+                                case "cat": LineWrite("cat <file>: Prints the contents of a file."); break;
+                                case "devlist": LineWrite("devlist: Lists disks."); break;
+                                case "bsod": LineWrite("bsod: The suicide button. Don't press it just because you're bored."); break;
+                                case "suicide": LineWrite("suicide: Crashes the system on purpose- just a test tool."); break;
+                                case "mv": LineWrite("mv <source> <destination> moves the file from the source to the destination."); break;
+                                case "cp": LineWrite("cp <source> <destination> copies a file with a set new name, NOT THAT you freaky degenerate!"); break;
 
-                                default: Console.WriteLine("No help avalible for " + subCommand); break;
+                                default: LineWrite("No help avalible for " + subCommand); break;
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Available Commands: " + avaliblecommands);
-                            Console.WriteLine("Type 'help <command>' for more details.");
-                            Console.WriteLine("GIMME ALL UR RAM -voblit");
+                            LineWrite("Available Commands: " + avaliblecommands);
+                            LineWrite("Type 'help <command>' for more details.");
+                            LineWrite("GIMME ALL UR RAM -voblit");
                         }
                         break;
 
                     case "time":
-                        Console.WriteLine("Current Date/Time: " + DateTime.Now.ToString());
+                        LineWrite("Current Date/Time: " + DateTime.Now.ToString());
                         break;
 
                     case "cls":
@@ -296,11 +320,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         if (parts.Length > 1)
                         {
                             string text = input.Substring(command.Length).Trim();
-                            Console.WriteLine(text);
+                            LineWrite(text);
                         }
                         break;
                     case "hello":
-                        Console.WriteLine("Hi! This is bob, your virtual assistant! If you see this, you clearly wanted to say hi! Thank you! More usefull stuff will be here soon, but for now, im here... waiting...");
+                        LineWrite("Hi! This is bob, your virtual assistant! If you see this, you clearly wanted to say hi! Thank you! More usefull stuff will be here soon, but for now, im here... waiting...");
                         break;
 
                     case "ls":
@@ -310,38 +334,83 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             foreach (var file in files)
                             {
                                 string suffix = file.mEntryType == DirectoryEntryTypeEnum.Directory ? " <DIR>" : "      ";
-                                Console.WriteLine(suffix + "  " + file.mName);
+                                LineWrite(suffix + "  " + file.mName);
                             }
                         }
                         catch
                         {
-                            Console.WriteLine("Error: Could not read directory. Is the disk on fire? " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
+                            LineWrite("Error: Could not read directory. Is the disk on fire? " + (rnd.Next(1, 3) == 1 ? "(> ~ <)" : "(T ~ T)"));
                         }
                         break;
 
                     case "reboot":
-                        Console.WriteLine("Rebooting...");
+                        LineWrite("Rebooting...");
                         Cosmos.HAL.Global.PIT.Wait(2000);
                         Sys.Power.Reboot();
                         break;
 
+                    case "cp":
+                        if (parts.Length > 2)
+                        {
+                            string srctocp = Path.Combine(currentDirectory, parts[1].Trim());
+                            string desttocp = Path.Combine(currentDirectory, parts[2].Trim());
+                            try
+                            {
+                                File.Copy(srctocp, desttocp);
+                                LineWrite("File successfully copied! " + desttocp + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)")); 
+                            }
+                            catch (Exception e)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                Console.ResetColor();
+                            }
+                            
+                        }
+                        else {
+                            LineWrite("Usage: cp <source file> <destination file>");
+                        }
+                        break;
+
+                    case "mv":
+                        if (parts.Length > 2)
+                        {
+                            string srctomv = Path.Combine(currentDirectory, parts[1].Trim());
+                            string desttomv = Path.Combine(currentDirectory, parts[2].Trim());
+                            try
+                            {
+                                File.Move(srctomv, desttomv);
+                                LineWrite("File successfully moved! " + desttomv + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                            }
+                            catch (Exception e)
+                            {
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                            }
+                            
+                        }
+                        else
+                        {
+                            LineWrite("Usage: mv <source file> <destination file.");
+                        }
+                        break;
+
                     case "shutdown":
-                        Console.WriteLine("Powering off...");
+                        LineWrite("Powering off...");
                         Cosmos.HAL.Global.PIT.Wait(2000);
                         Sys.Power.Shutdown();
                         break;
 
                     case "dmesg":
-                        Console.WriteLine("unknown error: ?");
+                        LineWrite("unknown error: ?");
                         break;
 
                     case "flower":
-                        Console.WriteLine("I Like");
+                        LineWrite("I Like");
                         Console.ForegroundColor = ConsoleColor.Red; Console.Write("F");
                         Console.ForegroundColor = ConsoleColor.Yellow; Console.Write("l");
                         Console.ForegroundColor = ConsoleColor.Green; Console.Write("o");
                         Console.ForegroundColor = ConsoleColor.Cyan; Console.Write("w");
-                        Console.ForegroundColor = ConsoleColor.Magenta; Console.WriteLine("e");
+                        Console.ForegroundColor = ConsoleColor.Magenta; LineWrite("e");
                         Console.ForegroundColor = ConsoleColor.DarkRed; Console.Write("r");
                         Console.ForegroundColor = ConsoleColor.DarkGreen; Console.Write("s");
                         Console.ResetColor();
@@ -363,19 +432,19 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 }
                                 Cosmos.HAL.Global.PIT.Wait(100);
                                 Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Text saved to disk 0 at " + filename + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                                LineWrite("Text saved to disk 0 at " + filename + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                                 Console.ResetColor();
                             }
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Usage: append-text <name.txt> <content>");
+                            LineWrite("Usage: append-text <name.txt> <content>");
                         }
                         break;
 
@@ -388,17 +457,17 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 if (File.Exists(filename))
                                 {
                                     string data = File.ReadAllText(filename);
-                                    Console.WriteLine(data);
+                                    LineWrite(data);
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Error: nothing at that location!!1");
+                                    LineWrite("Error: nothing at that location!!1");
                                 }
                             }
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
                         }
@@ -412,13 +481,13 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             {
                                 if (dev is Cosmos.HAL.BlockDevice.Partition part)
                                 {
-                                    Console.WriteLine("Found a partition. complete wipe");
+                                    LineWrite("Found a partition. complete wipe");
                                     byte[] empty = new byte[512];
 
 
                                     part.WriteBlock(0, 1, ref empty);
 
-                                    Console.WriteLine("Wipe successful! Rebooting...");
+                                    LineWrite("Wipe successful! Rebooting...");
                                     Cosmos.HAL.Global.PIT.Wait(2000);
                                     Cosmos.System.Power.Reboot();
                                 }
@@ -426,14 +495,14 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + ex.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                            LineWrite("An error occured and execution of the command failed. ERR_CODE: " + ex.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                         }
                         break;
 
                     case "format":
                         try
                         {
-                            Console.WriteLine("trying to FAT32 the drive... i think...");
+                            LineWrite("trying to FAT32 the drive... i think...");
 
                             var disks = VFSManager.GetDisks();
 
@@ -451,24 +520,24 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 }
 
                                 disk.CreatePartition((int)(disk.Size / 512) - 128);
-                                Console.WriteLine("Waiting for ATA Controller to catch up...");
+                                LineWrite("Waiting for ATA Controller to catch up...");
                                 Cosmos.HAL.Global.PIT.Wait(5000);
-                                Console.WriteLine("Formatting FAT32...");
+                                LineWrite("Formatting FAT32...");
                                 disk.FormatPartition(0, "FAT32", false);
-                                Console.WriteLine("Format complete!!1 You can now use append-text." + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                                LineWrite("Format complete!!1 You can now use append-text." + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("REBOOT NOW TO MOUNT THE DISK.");
+                                LineWrite("REBOOT NOW TO MOUNT THE DISK.");
                                 Console.ResetColor();
                             }
                             else
                             {
-                                Console.WriteLine("No raw disks found. Check VM Settings!");
+                                LineWrite("No raw disks found. Check VM Settings!");
                             }
                         }
                         catch (Exception e)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                            LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                             Console.ResetColor();
                         }
                         break;
@@ -482,29 +551,29 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 if (File.Exists(path))
                                 {
                                     File.Delete(path);
-                                    Console.WriteLine($"{path}" + " deleted");
+                                    LineWrite($"{path}" + " deleted");
                                 }
                             }
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
 
                         }
                         break;
                     case "yes":
-                        Console.WriteLine("press soemthing to stop it");
+                        LineWrite("press soemthing to stop it");
                         Cosmos.HAL.Global.PIT.Wait(1000);
                         while (!Console.KeyAvailable)
                         {
-                            Console.WriteLine("y");
+                            LineWrite("y");
                         }
                         break;
 
                     case "whoami":
-                        Console.WriteLine("I~Like~FlowersOS offical build version " + currentver);
+                        LineWrite("I~Like~FlowersOS offical build version " + currentver);
                         Console.ForegroundColor = ConsoleColor.Magenta;
                         bool isVM = false;
 
@@ -519,11 +588,11 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                         if (isVM)
                         {
-                            Console.WriteLine("ur in a vm do whatever you want" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                            LineWrite("ur in a vm do whatever you want" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                         }
                         else
                         {
-                            Console.WriteLine("STATUS: BARE METAL. careful formatting...");
+                            LineWrite("STATUS: BARE METAL. careful formatting...");
                         }
                         Console.ResetColor();
                         break;
@@ -531,24 +600,24 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                     case "free":
                         uint ramIate = Cosmos.Core.GCImplementation.GetUsedRAM() / 1024 / 1024;
                         uint ramLeftToeat = Cosmos.Core.CPU.GetAmountOfRAM();
-                        Console.WriteLine("ram used: " + ramIate + "/MB out of " + ramLeftToeat + "/MB total ram");
+                        LineWrite("ram used: " + ramIate + "/MB out of " + ramLeftToeat + "/MB total ram");
                         break;
 
                     case "beep":
-                        Console.WriteLine("Now watch me beeep");
+                        LineWrite("Now watch me beeep");
                         for (int i = 0; i < 3; i++)
                         {
                             Cosmos.System.PCSpeaker.Beep(2000, 50);
                             Cosmos.System.PCSpeaker.Beep(2500, 50);
                         }
-                        Console.WriteLine("now watch me naynay");
+                        LineWrite("now watch me naynay");
                         break;
 
                     case "theme":
                         if (parts.Length < 2)
                         {
-                            Console.WriteLine("Usage: theme <name>");
-                            Console.WriteLine("Themes: rose, violet, sunflower, hacker, default");
+                            LineWrite("Usage: theme <name>");
+                            LineWrite("Themes: rose, violet, sunflower, hacker, default");
                         }
                         else
                         {
@@ -577,18 +646,18 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                     Console.ForegroundColor = ConsoleColor.White;
                                     break;
                                 default:
-                                    Console.WriteLine("Theme not found! Try 'rose' or 'sunflower'.");
+                                    LineWrite("Theme not found! Try 'rose' or 'sunflower'.");
                                     break;
                             }
 
                             Console.Clear();
-                            Console.WriteLine("--- Theme updated to " + choice + " ---" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                            LineWrite("--- Theme updated to " + choice + " ---" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                         }
                         break;
 
                     case "uptime":
-                        Console.WriteLine("Cpu is " + Cosmos.Core.CPU.GetCPUBrandString());
-                        Console.WriteLine("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000 + " seconds.");
+                        LineWrite("Cpu is " + Cosmos.Core.CPU.GetCPUBrandString());
+                        LineWrite("Uptime is " + Cosmos.Core.CPU.GetCPUUptime() / 1000000000 + " seconds.");
                         break;
 
                     case "wc":
@@ -598,9 +667,9 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             {
                                 string path = currentDirectory + parts[1];
                                 string content = File.ReadAllText(path);
-                                Console.WriteLine(content.Split('\n').Length + "lines," + content.Split(' ').Length + " words");
+                                LineWrite(content.Split('\n').Length + "lines," + content.Split(' ').Length + " words");
                             }
-                            catch { Console.WriteLine("uhm its not there... :/"); }
+                            catch { LineWrite("uhm its not there... :/"); }
                         }
                         break;
 
@@ -613,12 +682,31 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 var fileStream = File.Create(path);
                                 fileStream.Close();
 
-                                Console.WriteLine("File created successfully" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                                LineWrite("File created successfully" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                             }
+                        }
+                        break;
+
+                    case "funnel":
+                        if (amIfunneling) break;
+                        if (parts.Length >= 3)
+                        {
+                            funnelingto = parts[parts.Length - 1];
+                            whateveristheretofunnel = "";
+                            amIfunneling = true;
+                            int startofthecommand = 7;
+                            int grabbyLength = input.Length - startofthecommand - funnelingto.Length;
+                            string theactuallcommandyourrunning = input.Substring(startofthecommand, grabbyLength).Trim();
+                            input = theactuallcommandyourrunning;
+                            goto starthere;
+                        }
+                        else
+                        {
+                            LineWrite("Usage: funnel <command> <file.txt>");
                         }
                         break;
 
@@ -626,13 +714,13 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                         if (parts.Length > 1)
                         {
                             var bytesinplaintext = System.Text.Encoding.UTF8.GetBytes(parts[1]);
-                            Console.WriteLine(Convert.ToBase64String(bytesinplaintext));
+                            LineWrite(Convert.ToBase64String(bytesinplaintext));
                         }
                         break;
 
 
                     case "kill":
-                        Console.WriteLine("nothing here yet...");
+                        LineWrite("nothing here yet...");
                         break;
 
                     case "mkdir":
@@ -641,12 +729,12 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                             try
                             {
                                 Directory.CreateDirectory(currentDirectory + parts[1]);
-                                Console.WriteLine("Folder created!" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                                LineWrite("Folder created!" + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
                             }
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
                         }
@@ -668,7 +756,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                 if (Directory.Exists(NeWpAtH))
                                     currentDirectory = NeWpAtH;
                                 else
-                                    Console.WriteLine("Directory not found!" + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                    LineWrite("Directory not found!" + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                             }
                         }
                         break;
@@ -685,31 +773,43 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
                                     string[] lines = File.ReadAllText(placewhereyouat).Split('\n');
                                     foreach (string line in lines)
                                     {
-                                        Console.WriteLine(line);
+                                        LineWrite(line);
                                     }
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Nothing there...");
+                                    LineWrite("Nothing there...");
                                 }
                             }
                             catch (Exception e)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                                LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                                 Console.ResetColor();
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Usage: cat <filename>");
+                            LineWrite("Usage: cat <filename>");
                         }
                         break;
 
                     case "suicide":
-                        Console.WriteLine("Dying shortly");
+                        LineWrite("Dying shortly");
                         Cosmos.HAL.Global.PIT.Wait(1000);
                         throw new Exception("Manual_Sys_Fail_It_Works_Yay");
+                        break;
+
+                    case "df":
+                        try
+                        {
+                            var volumes = VFSManager.GetAvailableFreeSpace(currentDirectory);
+                            LineWrite("you have " + (volumes / (1024 * 1024)).ToString() + " space left");
+                        }
+                        catch (Exception e)
+                        {
+                            LineWrite("An error occured and execution of the command failed. ERR_CODE: " + e.Message + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                        }
                         break;
 
                     case "bsod":
@@ -718,18 +818,18 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                     case "devlist":
                         var drivesig = VFSManager.GetDisks();
-                        Console.WriteLine("Found " + drivesig.Count + " disks.");
+                        LineWrite("Found " + drivesig.Count + " disks.");
                         int diskno = 0;
                         foreach (var drive in drivesig)
                         {
                             diskno++;
-                            Console.WriteLine("Disk: " + diskno + "| Partitions:" + drive.Partitions.Count);
+                            LineWrite("Disk: " + diskno + "| Partitions:" + drive.Partitions.Count);
                         }
                         break;
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Unknown input: " + input + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
+                        LineWrite("Unknown input: " + input + (rnd.Next(1, 3) == 1 ? " (> ~ <)" : " (T ~ T)"));
                         Console.ResetColor();
                         break;
 
@@ -740,7 +840,17 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
 
                 errorThingy.Error(E.ToString());
             }
-
+            if (amIfunneling)
+            {
+                amIfunneling = false;
+                try
+                {
+                    string fullPath = Path.Combine(currentDirectory, funnelingto);
+                    File.WriteAllText(fullPath, whateveristheretofunnel);
+                    Console.WriteLine("funneling worked!!1 " + funnelingto + (rnd.Next(1, 3) == 1 ? " (^ - ^)" : " (^ v ^)"));
+                }
+                catch { /* Stay silent if save fails */ }
+            }
         }
     }
 
