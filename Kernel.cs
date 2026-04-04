@@ -1,6 +1,6 @@
 //******************************************************************************
 
-// * FLOWER OS - Version 1.2.fix (MV  and CP command Update)
+// * FLOWER OS - Version 1.2.fix (MV  and CP command Update, oh and also funneling :P)
 
 // * Copyright (c) 2026 Voblit
 
