@@ -1,4 +1,4 @@
-<h1>I~LIKE~FLOWERS~OPERATING~SYSTEM v1.1</h1>
+<h1>I~LIKE~FLOWERS~OPERATING~SYSTEM v1.2</h1>
 <h3><I>The ultimate OS to get nothing done and be proud of it!-(ↄ)</I></h3>
 <div align="center">
   <img src="https://github.com/Voblit/I-Like-FlowersOS/blob/main/Screenshot%202026-03-27%20165354.png" alt="Flowers OS" width="600">
@@ -45,65 +45,40 @@
 <h2>CURRENTLY SUPPORTED COMMANDS</h2>
 <p>As of now, the curent supported commands in flowerOS are:</p>
  <ul>
-
   <li>neofetch</li>
-
   <li>banner</li>
-  
   <li>help</li>
-
   <li>time</li>
-
   <li>cls</li>
-
   <li>echo</li>
-
   <li>hello</li>
-
   <li>ls</li>
-
   <li>reboot</li>
-
   <li>shutdown</li>
-
   <li>dmesg</li>
-
   <li>flower</li>
-
   <li>append-text</li>
-
   <li>recall-text</li>
-
   <li>format</li>
-
   <li>rm</li>
-
   <li>yes</li>
-
   <li>whoami</li>
-
   <li>free</li>
-
   <li>beep</li>
-
   <li>theme</li>
-
   <li>uptime</li>
-
   <li>wc</li>
-
   <li>touch</li>
-
   <li>base64</li>
-
   <li>kill</li>
-
   <li>mkdir</li>
-
   <li>cd</li>
-
   <li>cat</li>
-
-</ul> 
+  <li>devlist</li>
+  <li>df</li>
+  <li>funnel</li>
+  <li>mv</li>
+  <li>cp</li>
+</ul>
 <I>There are also some secret commands- try to find them!</I>
 <hr>
