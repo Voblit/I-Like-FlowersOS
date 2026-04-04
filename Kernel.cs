@@ -154,7 +154,7 @@ _____________________I LIKE FLOWERS OS VERSION: " + currentver + "______________
         public string avaliblecommands = "neofetch, banner, help, time, cls, echo, hello, ls, reboot, shutdown, dmesg, flower, append-text, recall-text, format, rm, yes, whoami, free, beep, theme, uptime, wc, touch, base64, kill, mkdir, cd, cat, devlist, df, funnel, mv, cp";
         Canvas canvas;
         private CosmosVFS vfs;
-        public string currentver = "1.2.0";
+        public string currentver = "1.2.fix";
 
         //(^-^)
         //dont even think of removing it
