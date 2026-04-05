@@ -149,52 +149,60 @@
         terminalContainer.scrollTop = terminalContainer.scrollHeight;
     }
 
+    // Extracted Command Processor so we can call it manually
+    async function processCommand(cmd) {
+        const cmdLower = cmd.toLowerCase().trim();
+        if (cmdLower === '') return;
+
+        switch(cmdLower) {
+            case 'help':
+                await print("Available Commands:");
+                await print("  HELP     - Show this menu");
+                await print("  DOWNLOAD - View latest releases on GitHub");
+                await print("  SRC      - View kernel source code");
+                await print("  NEOFETCH - Display system banner");
+                await print("  CLS      - Clear screen");
+                break;
+            case 'download':
+                await print("Opening GitHub Releases...", "success");
+                window.open('https://github.com/Voblit/I-Like-FlowersOS/releases', '_blank');
+                break;
+            case 'src':
+                await print("Opening Source Repository...", "success");
+                window.open('https://github.com/Voblit/I-Like-FlowersOS', '_blank');
+                break;
+            case 'neofetch':
+                await print(bannerArt());
+                break;
+            case 'cls':
+                output.innerHTML = '';
+                break;
+            default:
+                await print(`i~like~flowers\`#: ${cmd}: command not found`, "banner-red");
+        }
+    }
+
     async function runBoot() {
         for (let line of bootSequence) {
             await print(line.t, line.c);
             await new Promise(r => setTimeout(r, line.d));
         }
         await print(bannerArt());
+        
+        // AUTORUN HELP HERE
+        await print(`<span class="highlight">i~like~flowers\`# help</span>`);
+        await processCommand('help');
+
         inputArea.style.display = 'flex';
         cmdInput.focus();
     }
 
     cmdInput.addEventListener('keydown', async (e) => {
         if (e.key === 'Enter') {
-            const cmd = cmdInput.value.trim(); // Removed lowerCase to keep user input style
-            const cmdLower = cmd.toLowerCase();
-            // FIXED PROMPT HERE
+            const cmd = cmdInput.value;
             await print(`<span class="highlight">i~like~flowers\`# ${cmd}</span>`);
             cmdInput.value = '';
-
-            switch(cmdLower) {
-                case 'help':
-                    await print("Available Commands:");
-                    await print("  HELP     - Show this menu");
-                    await print("  DOWNLOAD - View latest releases on GitHub");
-                    await print("  SRC      - View kernel source code");
-                    await print("  NEOFETCH - Display system banner");
-                    await print("  CLS      - Clear screen");
-                    break;
-                case 'download':
-                    await print("Opening GitHub Releases...", "success");
-                    window.open('https://github.com/Voblit/I-Like-FlowersOS/releases', '_blank');
-                    break;
-                case 'src':
-                    await print("Opening Source Repository...", "success");
-                    window.open('https://github.com/Voblit/I-Like-FlowersOS', '_blank');
-                    break;
-                case 'neofetch':
-                    await print(bannerArt());
-                    break;
-                case 'cls':
-                    output.innerHTML = '';
-                    break;
-                case '':
-                    break;
-                default:
-                    await print(`i~like~flowers\`#: ${cmd}: command not found`, "banner-red");
-            }
+            await processCommand(cmd);
         }
     });
 
