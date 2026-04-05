@@ -2,204 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>I-Like-FlowersOS // TERMINAL_BOOT</title>
+    <title>I-Like-FlowersOS // TERMINAL</title>
     <link href="https://fonts.cdnfonts.com/css/perfect-dos-vga-437" rel="stylesheet">
     <style>
         :root {
-            --vga-black: #000000;
-            --vga-red: #aa0000;      /* Classic BIOS Red */
-            --vga-red-bright: #ff5555;
+            --vga-red: #aa0000;
             --vga-gray: #aaaaaa;
             --vga-white: #ffffff;
             --vga-green: #00aa00;
         }
 
-        * { box-sizing: border-box; }
-
         body, html {
             margin: 0; padding: 0;
-            background-color: #050505;
+            background-color: #000;
             color: var(--vga-gray);
             font-family: 'Perfect DOS VGA 437', monospace;
-            height: 100%;
-            overflow-x: hidden;
-            /* Sharp rendering for pixel fonts */
             font-smooth: never;
             -webkit-font-smoothing: none;
+            overflow-x: hidden;
         }
 
-        .terminal-wrapper {
+        .terminal {
             padding: 20px;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* The Boot Sequence Text */
-        #boot-log {
-            white-space: pre-wrap;
-            margin-bottom: 20px;
-            line-height: 1.2;
+        #output { white-space: pre-wrap; line-height: 1.2; }
+        
+        /* Banner specific styling to ensure pixel-perfect ASCII */
+        .banner-red { 
+            color: var(--vga-red); 
+            white-space: pre; 
+            line-height: 1; 
+            display: block;
+            margin: 15px 0;
         }
 
         .highlight { color: var(--vga-white); }
         .success { color: var(--vga-green); }
-        .danger { color: var(--vga-red-bright); }
-
-        /* The Banner Art */
-        #banner {
-            color: var(--vga-red); /* Your OS Color */
-            white-space: pre;
-            display: none; /* Shown after boot */
-            line-height: 1;
-            font-size: 14px;
-            margin-top: 10px;
-            border-top: 1px solid #222;
-            padding-top: 20px;
+        
+        #input-area { display: flex; align-items: center; margin-top: 10px; }
+        #prompt { color: var(--vga-white); margin-right: 10px; }
+        #cmd-input {
+            background: transparent;
+            border: none;
+            color: var(--vga-white);
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            width: 100%;
         }
 
-        #cursor {
-            display: inline-block;
-            width: 10px;
-            height: 16px;
-            background: var(--vga-gray);
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px 0;
-            border-top: 1px solid #111;
-            font-size: 12px;
-            color: #444;
-            text-align: center;
-        }
-
-        a { color: var(--vga-gray); text-decoration: none; border-bottom: 1px solid #444; }
-        a:hover { color: var(--vga-white); border-bottom-color: var(--vga-white); }
+        a { color: inherit; text-decoration: none; }
     </style>
 </head>
 <body>
 
-<div class="terminal-wrapper">
-    <div id="boot-log"></div>
-    
-    <pre id="banner">
-                    .-~~~-
-               .-~~~_._~~~\   
-               /~-~~   ~.  `._ I like flowers OS
-              /    \     \  | ~~-_ I like flowers OS
-       __     |      |     | |  /~\|   I like flowers OS
-   _-~~  ~~-..|        ______||/__..-~~/
-    ~-.___     \     /~\_________.-~~
-          \~~--._\   |             / Current version: <span id="ver-text">FETCHING...</span>
-           ^-_    ~\  \           /^
-              ^~---|~~~~-.___.-~^
-                /^^| | | |^~\ Uptime: <span id="uptime">0s</span>
-               //^`/ /_/ ^~\\ Ram: 128MB [COSMOS_DEFAULT]
-               /   //~||      \
-                   ~   || Your CPU: <span id="cpu-name">GENERIC_X86_64</span>
-            ___      -(||      __ ___ _
-           |\|  \       ||_.-~~ /|\-  \~-._
-           | -\| |      ||/    /  | |\- | |\ \
-            \__-\|______ ||  |    \___\|  \_\|
-      _____ _.-~/|\      \\||  \  |  /       ~-.
-    /'  --/|  / /|  \    \||    \ /           |\~-
-   ' ---/| | |   |\  |     ||                   \__|
-  | --/| | ;  \ /|  /    -(|| The time is <span id="sys-time">00:00:00</span>
-  `./  |  /      \|/        ||)-
-    `~^~^                   ||
-    </pre>
-
-    <div id="input-line">
-        <span id="cursor"></span>
+<div class="terminal">
+    <div id="output"></div>
+    <div id="input-area" style="display:none;">
+        <span id="prompt">ILF_OS:\></span>
+        <input type="text" id="cmd-input" autofocus spellcheck="false">
     </div>
-
-    <footer>
-        [ <a href="https://github.com/Voblit/I-Like-FlowersOS">SOURCE_CODE</a> ] 
-        [ <a href="https://github.com/Voblit/I-Like-FlowersOS/releases">RELEASES</a> ]
-    </footer>
 </div>
 
 <script>
-    const log = document.getElementById('boot-log');
-    const banner = document.getElementById('banner');
-    const cursor = document.getElementById('cursor');
+    const output = document.getElementById('output');
+    const inputArea = document.getElementById('input-area');
+    const cmdInput = document.getElementById('cmd-input');
+    
+    let currentVersion = "v1.2.0-STABLE";
 
-        const bootSequence = [
-        { text: "Cosmos Primary Kernel Bootloader starting...", delay: 100 },
-        { text: "CPU: Intel(R) Core(TM) @ " + (navigator.hardwareConcurrency || 8) + " Cores detected.", delay: 400 },
-        { text: "Memory Management: Multiboot info detected. Amount: 128 MB", delay: 200 },
-        { text: "GDT/IDT: Global Descriptor Tables initialized.", delay: 150 },
-        { text: "PIC: Dual 8259A Programmable Interrupt Controllers initialized.", delay: 150 },
-        { text: "", delay: 100 },
-        { text: "Scanning PCI Bus...", delay: 500 },
-        { text: "  Found Device: [01:01.0] IDE Controller (ATA)", delay: 300, class: "highlight" },
-        { text: "  Found Device: [02:01.0] Ethernet Controller (PCNETII)", delay: 200, class: "highlight" },
-        { text: "  Found Device: [03:00.0] Display Controller (VGA)", delay: 100, class: "highlight" },
-        { text: "", delay: 100 },
-        { text: "Cosmos.HAL.BlockDevice: Initializing ATA Master...", delay: 400 },
-        { text: "  ATA Master: Success. 40GB Fixed Drive [HDD0]", delay: 200, class: "success" },
-        { text: "Cosmos.System.VFS: Initializing Virtual File System...", delay: 600 },
-        { text: "  VFS: Registering Partition [0] (FAT32) on Drive [0]", delay: 300, class: "success" },
-        { text: "Cosmos.System.Network: Starting Network Stack...", delay: 500 },
-        { text: "  TCP/IPv4: Stack initialized. DHCP Lease requested.", delay: 400, class: "success" },
-        { text: "", delay: 200 },
-        { text: "Kernel.Run() -> Invoking User Code...", delay: 1000 },
-        { text: "------------------------------------------------------------", delay: 100 }
+    const bannerArt = () => `
+<span class="banner-red">                    .-~~~-
+               .-~~~_._~~~\\   
+               /~-~~   ~.  \`._ I like flowers OS
+              /    \\     \\  | ~~-_ I like flowers OS
+       __     |      |     | |  /~\\|   I like flowers OS
+   _-~~  ~~-..|        ______||/__..-~~/
+    ~-.___     \\     /~\\_________.-~~
+          \\~~--._\\   |             / Current version: ${currentVersion}
+           ^-_    ~\\  \\           /^
+              ^~---|~~~~-.___.-~^
+                /^^| | | |^~\\ Uptime: ${Math.floor(performance.now()/1000)}s
+               //^' / /_/ ^~\\\\ Ram: 128MB [COSMOS_DEFAULT]
+               /   //~||      \\
+                   ~   || Your CPU: ${navigator.hardwareConcurrency || 8} Core Generic_x86_64
+            ___      -(||      __ ___ _
+           |\\|  \\       ||_.-~~ /|\\-  \\~-._
+           | -\\| |      ||/    /  | |\\- | |\\ \\
+            \\__-\\|______ ||  |    \\___\\|  \\_\\|
+      _____ _.-~/|\\      \\\\||  \\  |  /       ~-.
+    /'  --/|  / /|  \\    \\||    \\ /           |\\~-
+   ' ---/| | |   |\\  |     ||                   \\__|
+  | --/| | ;  \\ /|  /    -(|| The time is ${new Date().toLocaleString()}
+  \`./  |  /      \\|/        ||)-
+    \`~^~^                   ||</span>`;
+
+    const bootSequence = [
+        { t: "Cosmos Primary Kernel Bootloader starting...", d: 100 },
+        { t: "GDT/IDT: Global Descriptor Tables initialized.", d: 150 },
+        { t: "Scanning PCI Bus...", d: 400 },
+        { t: "  Found Device: [01:01.0] IDE Controller (ATA)", d: 200, c: "highlight" },
+        { t: "Cosmos.HAL.BlockDevice: Initializing ATA Master...", d: 300 },
+        { t: "  ATA Master: Success. 40GB Fixed Drive [HDD0]", d: 200, c: "success" },
+        { t: "Cosmos.System.VFS: Initializing Virtual File System...", d: 400 },
+        { t: "  VFS: Registering Partition [0] (FAT32) on Drive [0]", d: 200, c: "success" },
+        { t: "Kernel.Run() -> Invoking User Code...", d: 600 },
+        { t: "------------------------------------------------------------", d: 100 }
     ];
 
+    async function print(text, className = "") {
+        const line = document.createElement('div');
+        if (className) line.className = className;
+        line.innerHTML = text;
+        output.appendChild(line);
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
     async function runBoot() {
-        for (const line of bootSequence) {
-            const div = document.createElement('div');
-            if (line.class) div.className = line.class;
-            div.innerText = line.text;
-            log.appendChild(div);
-            await new Promise(r => setTimeout(r, line.delay));
-            window.scrollTo(0, document.body.scrollHeight);
+        for (let line of bootSequence) {
+            await print(line.t, line.c);
+            await new Promise(r => setTimeout(r, line.d));
         }
-        
-        // Show banner after boot
-        banner.style.display = "block";
-        cursor.remove(); // Move cursor to end of banner logic if desired
-        document.getElementById('input-line').innerHTML = "I-Like-FlowersOS:> <span id='cursor'></span>";
+        await print(bannerArt());
+        inputArea.style.display = 'flex';
+        cmdInput.focus();
     }
 
-    async function fetchGitData() {
-        try {
-            // Fetch Version from Tags
-            const tagRes = await fetch('https://api.github.com/repos/Voblit/I-Like-FlowersOS/tags');
-            const tags = await tagRes.json();
-            document.getElementById('ver-text').innerText = tags[0] ? tags[0].name : "v1.0.0-INDIE";
+    cmdInput.addEventListener('keydown', async (e) => {
+        if (e.key === 'Enter') {
+            const cmd = cmdInput.value.toLowerCase().trim();
+            await print(`<span class="highlight">ILF_OS:\\> ${cmd}</span>`);
+            cmdInput.value = '';
 
-            // Set System Time
-            document.getElementById('sys-time').innerText = new Date().toLocaleString();
-
-            // Fake Uptime increment
-            let up = 0;
-            setInterval(() => {
-                up++;
-                document.getElementById('uptime').innerText = up + "s";
-            }, 1000);
-
-        } catch (e) {
-            document.getElementById('ver-text').innerText = "OFFLINE_MODE";
+            switch(cmd) {
+                case 'help':
+                    await print("Available Commands:");
+                    await print("  HELP     - Show this menu");
+                    await print("  DOWNLOAD - View latest releases on GitHub");
+                    await print("  SRC      - View kernel source code");
+                    await print("  NEOFETCH - Display system banner");
+                    await print("  CLS      - Clear screen");
+                    break;
+                case 'download':
+                    await print("Opening GitHub Releases...", "success");
+                    window.open('https://github.com/Voblit/I-Like-FlowersOS/releases', '_blank');
+                    break;
+                case 'src':
+                    await print("Opening Source Repository...", "success");
+                    window.open('https://github.com/Voblit/I-Like-FlowersOS', '_blank');
+                    break;
+                case 'neofetch':
+                    await print(bannerArt());
+                    break;
+                case 'cls':
+                    output.innerHTML = '';
+                    break;
+                case '':
+                    break;
+                default:
+                    await print(`Unknown command: ${cmd}`, "banner-red");
+            }
         }
-    }
+    });
 
-    // Init
-    fetchGitData();
+    // Start
     runBoot();
 </script>
-
 </body>
 </html>
