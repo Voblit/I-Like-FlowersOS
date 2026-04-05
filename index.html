@@ -10,6 +10,7 @@
             --vga-gray: #aaaaaa;
             --vga-white: #ffffff;
             --vga-green: #00aa00;
+            --vga-blue: #0000aa;
         }
 
         body, html {
@@ -19,19 +20,23 @@
             font-family: 'Perfect DOS VGA 437', monospace;
             font-smooth: never;
             -webkit-font-smoothing: none;
-            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .terminal {
+        .terminal-container {
+            flex: 1;
             padding: 20px;
+            overflow-y: auto;
             max-width: 950px;
             margin: 0 auto;
-            min-height: 100vh;
+            width: 100%;
         }
 
         #output { white-space: pre-wrap; line-height: 1.2; }
         
-        /* Banner specific styling to ensure pixel-perfect ASCII */
         .banner-red { 
             color: var(--vga-red); 
             white-space: pre; 
@@ -44,7 +49,7 @@
         .success { color: var(--vga-green); }
         
         #input-area { display: flex; align-items: center; margin-top: 10px; }
-        #prompt { color: var(--vga-white); margin-right: 10px; }
+        #prompt { color: var(--vga-white); margin-right: 5px; white-space: nowrap; }
         #cmd-input {
             background: transparent;
             border: none;
@@ -55,23 +60,45 @@
             width: 100%;
         }
 
+        .bottom-bar {
+            background-color: var(--vga-gray);
+            color: #000;
+            padding: 2px 20px;
+            display: flex;
+            gap: 25px;
+            font-size: 14px;
+            text-transform: uppercase;
+            z-index: 100;
+        }
+
+        .bottom-bar a { color: #000; text-decoration: none; font-weight: bold; }
+        .key-hint { color: var(--vga-blue); margin-right: 5px; }
+
         a { color: inherit; text-decoration: none; }
     </style>
 </head>
 <body>
 
-<div class="terminal">
+<div class="terminal-container">
     <div id="output"></div>
     <div id="input-area" style="display:none;">
-        <span id="prompt">ILF_OS:\></span>
+        <span id="prompt">i~like~flowers`#</span>
         <input type="text" id="cmd-input" autofocus spellcheck="false">
     </div>
+</div>
+
+<div class="bottom-bar">
+    <span><span class="key-hint">F1</span><a href="https://github.com/Voblit/I-Like-FlowersOS" target="_blank">SOURCE</a></span>
+    <span><span class="key-hint">F2</span><a href="https://github.com/Voblit/I-Like-FlowersOS/releases" target="_blank">RELEASES</a></span>
+    <span><span class="key-hint">F3</span>HELP</span>
+    <span style="margin-left: auto;">I-LIKE-FLOWERS_OS_V1.2</span>
 </div>
 
 <script>
     const output = document.getElementById('output');
     const inputArea = document.getElementById('input-area');
     const cmdInput = document.getElementById('cmd-input');
+    const terminalContainer = document.querySelector('.terminal-container');
     
     let currentVersion = "v1.2.0-STABLE";
 
@@ -119,7 +146,7 @@
         if (className) line.className = className;
         line.innerHTML = text;
         output.appendChild(line);
-        window.scrollTo(0, document.body.scrollHeight);
+        terminalContainer.scrollTop = terminalContainer.scrollHeight;
     }
 
     async function runBoot() {
@@ -134,11 +161,13 @@
 
     cmdInput.addEventListener('keydown', async (e) => {
         if (e.key === 'Enter') {
-            const cmd = cmdInput.value.toLowerCase().trim();
-            await print(`<span class="highlight">ILF_OS:\\> ${cmd}</span>`);
+            const cmd = cmdInput.value.trim(); // Removed lowerCase to keep user input style
+            const cmdLower = cmd.toLowerCase();
+            // FIXED PROMPT HERE
+            await print(`<span class="highlight">i~like~flowers\`# ${cmd}</span>`);
             cmdInput.value = '';
 
-            switch(cmd) {
+            switch(cmdLower) {
                 case 'help':
                     await print("Available Commands:");
                     await print("  HELP     - Show this menu");
@@ -164,19 +193,12 @@
                 case '':
                     break;
                 default:
-                    await print(`Unknown command: ${cmd}`, "banner-red");
+                    await print(`i~like~flowers\`#: ${cmd}: command not found`, "banner-red");
             }
         }
     });
 
-    // Start
     runBoot();
 </script>
-    <div class="bottom-bar">
-    <span><span class="key-hint">F1</span><a href="https://github.com/Voblit/I-Like-FlowersOS" target="_blank">SOURCE</a></span>
-    <span><span class="key-hint">F2</span><a href="https://github.com/Voblit/I-Like-FlowersOS/releases" target="_blank">RELEASES</a></span>
-    <span><span class="key-hint">F3</span>HELP</span>
-    <span style="margin-left: auto;">I-LIKE-FLOWERS_OS_V1.2</span>
-</div>
 </body>
 </html>
