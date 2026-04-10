@@ -20,7 +20,7 @@
 <hr>
 <img src="https://img.shields.io/badge/Insults-Enabled-red?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Stability-None-orange?style=for-the-badge" />
-
+<h4><b><I>No, we wont be adding age verification to our OS; we are against the new bills for OS age verification.</b></I></h4>
 </p>
 <P>This OS is just a silly little project and is absolutely nothing to take sereously. IF, in any way shape form reason or matter, you are DUMB ENOUGH to boot this on a real device and it bricks it or somthing like that, <b>I AM NOT RESPONSIBLE</b> . Keep it to the vm. </P>
 <p>
